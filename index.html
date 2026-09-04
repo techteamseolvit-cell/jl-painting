@@ -1,0 +1,653 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J&L Painting | Professional Painting Services</title>
+<meta name="description" content="Interior and exterior painting in Burlington, Raleigh, Durham, and Greensboro, NC.">
+<!-- ============================================================
+  J&L Painting - Landing Page
+  Como usar en WordPress / Elementor:
+  1) Sube estas 7 imagenes a tu Biblioteca de medios de WordPress:
+     logo.png, bay-window-finished.jpg, hallway-white-finished.jpg,
+     accent-ceiling-red.jpg, laundry-finished.jpg, closet-doors-finished.jpg,
+     kitchen-finished.jpg
+  2) Por cada img, copia la URL que WordPress te da para ese archivo y
+     reemplaza el valor de src (comentario arriba de cada una indica que
+     archivo va ahi). En la galeria, cada foto tiene un
+     <a href="#" class="lightbox-link"> - reemplaza tambien ese href.
+  3) Este cliente AUN NO tiene formulario de GoHighLevel. Hay un formulario
+     PROVISIONAL (visualmente similar, sin conexion real) en Hero y CTA
+     final. Busca <form class="jl-fake-form"> y reemplaza TODO ese bloque
+     por el iframe + script real de GoHighLevel cuando lo tengan.
+  4) Pega TODO este bloque (incluyendo el style y el script del final) en
+     un widget HTML de Elementor, en una pagina en blanco (sin header/footer
+     del tema si quieres la landing limpia).
+============================================================= -->
+<style>
+  #jl-landing {
+    --blue: #1f5fa8;
+    --blue-dark: #123a6b;
+    --blue-mid: #164a87;
+    --yellow: #f3b62b;
+    --yellow-dark: #d99c14;
+    --grey: #4b5563;
+    --ink: #1e2430;
+    --ink-dim: #5b6472;
+    --white: #ffffff;
+    --bg: #f6f7f9;
+    --bg-2: #eef1f4;
+    --line-l: #e0e4e9;
+    --line-d: #2a4a76;
+    --heading: var(--ink);
+    --body: var(--ink-dim);
+    --surface: var(--white);
+    --line: var(--line-l);
+    background: var(--bg);
+    color: var(--body);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    line-height: 1.6;
+  }
+  #jl-landing * { box-sizing: border-box; }
+  #jl-landing img { max-width: 100%; display: block; }
+  #jl-landing a { text-decoration: none; }
+  #jl-landing .wrap { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  #jl-landing section { padding: 84px 0; margin: 0; }
+  #jl-landing h1, #jl-landing h2, #jl-landing h3 {
+    font-family: 'Poppins', 'Arial', sans-serif;
+    font-weight: 700;
+    color: var(--heading);
+    line-height: 1.18;
+    margin: 0 0 18px;
+    text-wrap: balance;
+  }
+  #jl-landing h1 { font-size: clamp(32px, 4.6vw, 50px); }
+  #jl-landing h2 { font-size: clamp(26px, 3.4vw, 36px); }
+  #jl-landing h3 { font-size: 18px; }
+  #jl-landing p { color: var(--body); margin: 0 0 16px; font-size: 16px; }
+  #jl-landing .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px; color: var(--blue);
+    text-transform: uppercase; letter-spacing: 2px; font-size: 13px; font-weight: 700;
+    margin-bottom: 14px;
+  }
+  #jl-landing .eyebrow::before { content:""; width:22px; height:3px; background:var(--yellow); display:inline-block; }
+  #jl-landing .btn {
+    display: inline-block; background: var(--yellow); color: var(--ink); font-weight: 700;
+    padding: 15px 30px; border-radius: 6px; font-size: 15px; border: none; cursor: pointer;
+    transition: background .2s ease, transform .2s ease;
+  }
+  #jl-landing .btn:hover { background: var(--yellow-dark); transform: translateY(-2px); }
+  #jl-landing .btn-outline {
+    display: inline-block; border: 2px solid #fff; color: #fff;
+    font-weight: 700; padding: 13px 26px; border-radius: 6px; font-size: 14px;
+  }
+
+  #jl-landing .sec-blue { background: var(--blue-dark); --heading:#fff; --body:#c3d3e8; --surface: var(--blue-mid); --line: var(--line-d); }
+  #jl-landing .sec-white { background: var(--white); --heading: var(--ink); --body: var(--ink-dim); --surface: var(--bg); --line: var(--line-l); }
+
+  /* TOPBAR */
+  #jl-landing #jl-topbar { padding: 8px 0; margin: 0; background: #fff; text-align: center; border-bottom: 1px solid var(--line-l); }
+  #jl-topbar img { height: 84px; width: auto; display: inline-block; }
+
+  /* HERO: bloque de color diagonal, texto+formulario izquierda, foto enmarcada derecha */
+  #jl-hero {
+    padding: 0; margin: 0;
+  }
+  #jl-hero .grid { display: grid; grid-template-columns: 1fr 1fr; align-items: stretch; }
+  #jl-hero .panel {
+    position: relative; overflow: hidden; background: var(--blue);
+    padding: 70px 56px; display: flex; flex-direction: column; justify-content: center;
+  }
+  #jl-hero .panel::after {
+    content: ""; position: absolute; right: -30%; top: -25%; width: 90%; height: 170%;
+    background: var(--yellow); opacity: .1; transform: rotate(18deg);
+  }
+  #jl-hero .panel > * { position: relative; z-index: 1; }
+  #jl-hero .photo { position: relative; min-height: 520px; overflow: hidden; }
+  #jl-hero .photo .bg-img {
+    position: absolute; inset: 0; background-size: cover; background-position: center;
+    animation: jlKenBurns 16s ease-in-out infinite alternate;
+  }
+  @keyframes jlKenBurns { 0% { transform: scale(1); } 100% { transform: scale(1.08); } }
+  #jl-hero .badge {
+    display: inline-flex; align-items: center; gap: 8px; background: var(--yellow);
+    color: var(--ink); border-radius: 30px; padding: 7px 16px; font-size: 13px; font-weight: 700; margin-bottom: 20px;
+    animation: jlFadeUp .8s ease both;
+  }
+  #jl-hero h1 { color: #fff; animation: jlFadeUp .8s ease .1s both; }
+  #jl-hero p.lead { color: #d7e3f2; font-size: 17px; max-width: 480px; animation: jlFadeUp .8s ease .2s both; }
+  #jl-hero .ctas { display: flex; gap: 14px; flex-wrap: wrap; margin: 8px 0 30px; animation: jlFadeUp .8s ease .3s both; }
+  @keyframes jlFadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+  #jl-hero-form {
+    background: #fff; border-radius: 10px; padding: 26px; box-shadow: 0 24px 60px rgba(0,0,0,.28);
+    animation: jlFadeUp .8s ease .4s both;
+  }
+  #jl-hero-form h3 { color: var(--blue-dark); margin-bottom: 4px; }
+  #jl-hero-form .sub { font-size: 13px; color: var(--ink-dim); margin-bottom: 16px; }
+  #jl-hero-form .form-slot { min-height: 320px; }
+
+  /* Formulario provisional */
+  .jl-fake-form { display: flex; flex-direction: column; gap: 13px; }
+  .jl-fake-form label { font-size: 12px; font-weight: 700; color: var(--ink-dim); text-transform: uppercase; letter-spacing: .4px; margin-bottom: 5px; display: block; }
+  .jl-fake-form input, .jl-fake-form select, .jl-fake-form textarea {
+    width: 100%; background: var(--bg); border: 1px solid var(--line-l); border-radius: 6px;
+    padding: 12px 14px; color: var(--ink); font-family: inherit; font-size: 14px;
+  }
+  .jl-fake-form input:focus, .jl-fake-form select:focus, .jl-fake-form textarea:focus { outline: none; border-color: var(--blue); }
+  .jl-fake-form button {
+    margin-top: 4px; border: none; cursor: pointer; width: 100%; background: var(--yellow); color: var(--ink);
+    font-weight: 700; padding: 14px; border-radius: 6px; font-size: 15px; font-family: inherit;
+  }
+  .jl-fake-form .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  @media (max-width: 480px) { .jl-fake-form .row2 { grid-template-columns: 1fr; } }
+  .jl-fake-form textarea { resize: vertical; min-height: 100px; }
+  .jl-fake-form .consent { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: var(--ink-dim); }
+  .jl-fake-form .consent input { width: auto; margin-top: 3px; accent-color: var(--blue); }
+
+  /* TRUST BAR */
+  #jl-landing #jl-trust { padding: 46px 0; margin: 0; border-bottom: 1px solid var(--line-l); }
+  #jl-trust .grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 40px; }
+  #jl-trust .item { text-align: center; padding: 0 12px; }
+  #jl-trust .icon {
+    width: 50px; height: 50px; margin: 0 auto 14px; background: var(--blue);
+    display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 15px; border-radius: 8px;
+  }
+  #jl-trust h3 { font-size: 17px; margin-bottom: 6px; }
+  #jl-trust p { font-size: 14px; margin: 0; }
+
+  /* PROBLEM */
+  #jl-problem { text-align: center; }
+  #jl-problem .wrap { max-width: 820px; }
+  #jl-problem h2 { color: #fff; }
+  #jl-problem .eyebrow { color: var(--yellow); }
+  #jl-problem .eyebrow::before { background: var(--yellow); }
+
+  /* SOLUTION */
+  #jl-solution .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+  #jl-solution img { border-radius: 10px; }
+  #jl-solution .stat-row { display: flex; gap: 30px; margin-top: 26px; flex-wrap: wrap; }
+  #jl-solution .stat b { display: block; font-family:'Poppins',sans-serif; font-size: 26px; color: var(--blue); }
+  #jl-solution .stat span { font-size: 12px; color: var(--ink-dim); text-transform: uppercase; letter-spacing: .4px; }
+
+  /* SERVICES */
+  #jl-services .head { text-align: center; max-width: 640px; margin: 0 auto 50px; }
+  #jl-services .grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 22px; }
+  #jl-services .card {
+    background: #fff; border-top: 4px solid var(--yellow); border-radius: 8px; padding: 30px 24px; box-shadow: 0 10px 26px rgba(0,0,0,.18);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  #jl-services .card:hover { transform: translateY(-6px); box-shadow: 0 18px 36px rgba(0,0,0,.28); }
+  #jl-services .card h3 { color: var(--ink); }
+  #jl-services .card p { color: var(--ink-dim); }
+  #jl-services .card.jl-card-pre { opacity: 0; transform: translateY(24px); }
+  #jl-services .card.jl-card-in { animation: jlCardIn .6s ease forwards; }
+  #jl-services .card:nth-child(1).jl-card-in { animation-delay: 0s; }
+  #jl-services .card:nth-child(2).jl-card-in { animation-delay: .1s; }
+  #jl-services .card:nth-child(3).jl-card-in { animation-delay: .2s; }
+  #jl-services .card:nth-child(4).jl-card-in { animation-delay: .3s; }
+  @keyframes jlCardIn { to { opacity: 1; transform: translateY(0); } }
+  #jl-services h3 { color: #fff; font-size: 17px; }
+  #jl-services p { font-size: 14px; margin: 0; }
+
+  /* PROCESS */
+  #jl-process .head { text-align: center; max-width: 640px; margin: 0 auto 54px; }
+  #jl-process .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 26px; }
+  #jl-process .step-n {
+    width: 44px; height: 44px; border-radius: 50%; background: var(--blue); color: #fff;
+    display: flex; align-items: center; justify-content: center; font-family:'Poppins',sans-serif;
+    font-weight: 700; font-size: 17px; margin-bottom: 14px;
+  }
+  #jl-process h3 { font-size: 16px; }
+  #jl-process p { font-size: 14px; }
+
+  /* ABOUT */
+  #jl-about .wrap { display: grid; grid-template-columns: .9fr 1.1fr; gap: 56px; align-items: center; }
+  #jl-about img { border-radius: 10px; }
+  #jl-about .diffs { display: grid; gap: 18px; margin-top: 24px; }
+  #jl-about .diff { display: flex; gap: 14px; align-items: flex-start; }
+  #jl-about .diff .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blue); margin-top: 8px; flex: none; }
+  #jl-about .diff h3 { font-size: 15px; margin-bottom: 3px; }
+  #jl-about .diff p { font-size: 14px; margin: 0; }
+
+  /* GALLERY: grid mas simple, 3 columnas (pocas fotos disponibles) */
+  #jl-gallery .head { text-align: center; max-width: 640px; margin: 0 auto 50px; }
+  #jl-gallery .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  #jl-gallery .grid a { position: relative; overflow: hidden; display: block; cursor: zoom-in; border-radius: 8px; aspect-ratio: 4/3; }
+  #jl-gallery .grid img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+  #jl-gallery .grid a:hover img { transform: scale(1.08); }
+  #jl-gallery .grid a::after { content:""; position:absolute; inset:0; border-radius: 8px; box-shadow: inset 0 0 0 1px rgba(0,0,0,.06); }
+
+  /* LIGHTBOX */
+  #jl-lightbox { position: fixed; inset: 0; background: rgba(10,16,24,.94); z-index: 99999; display:none; align-items:center; justify-content:center; padding:48px; cursor:zoom-out; }
+  #jl-lightbox.open { display: flex; }
+  #jl-lightbox img { max-width: 92vw; max-height: 88vh; border-radius: 6px; box-shadow: 0 30px 90px rgba(0,0,0,.6); cursor: default; }
+  #jl-lightbox .jl-lightbox-close { position: absolute; top: 22px; right: 30px; width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.25); color: #fff; font-size: 24px; line-height: 1; cursor: pointer; }
+
+  /* COMMITMENT / TRUST BAND */
+  #jl-commit { text-align: center; }
+  #jl-commit .wrap { max-width: 780px; }
+  #jl-commit .mark { font-family:'Poppins',sans-serif; font-size: 64px; color: var(--yellow); line-height: 1; margin-bottom: 4px; }
+  #jl-commit blockquote { margin: 0 0 26px; font-size: clamp(20px, 2.6vw, 27px); font-style: italic; color: #fff; font-weight: 500; line-height: 1.45; }
+  #jl-commit .who { font-family:'Poppins',sans-serif; font-weight: 600; color: var(--yellow); font-size: 15px; }
+  #jl-commit .who span { display: block; color: #c3d3e8; font-weight: 400; font-family:'Inter',sans-serif; font-size: 13px; margin-top: 2px; }
+
+  /* FAQ */
+  #jl-faq .wrap { max-width: 820px; }
+  #jl-faq .head { text-align: center; margin-bottom: 44px; }
+  #jl-faq details { border-bottom: 1px solid var(--line-l); padding: 22px 0; }
+  #jl-faq summary { cursor: pointer; list-style: none; font-family:'Poppins',sans-serif; font-size: 18px; color: var(--ink); display: flex; justify-content: space-between; align-items: center; }
+  #jl-faq summary::-webkit-details-marker { display: none; }
+  #jl-faq summary::after { content: "+"; color: var(--blue); font-size: 22px; margin-left: 20px; }
+  #jl-faq details[open] summary::after { content: "\2013"; }
+  #jl-faq details p { margin-top: 14px; margin-bottom: 0; font-size: 15px; }
+
+  /* CTA FINAL */
+  #jl-cta { position: relative; overflow: hidden; background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 70%); }
+  #jl-cta::after { content: ""; position: absolute; left: -10%; bottom: -30%; width: 55%; height: 140%; background: var(--yellow); opacity: .1; transform: rotate(-16deg); }
+  #jl-cta .wrap { position: relative; z-index: 1; max-width: 1080px; }
+  #jl-cta .cta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  #jl-cta .cta-info { text-align: left; }
+  #jl-cta img.logo { width: 120px; margin: 0 0 22px; border-radius: 10px; background: #fff; padding: 8px; }
+  #jl-cta h1 { color: #fff; }
+  #jl-cta p { color: #d7e3f2; }
+  #jl-cta-form { background: #fff; border-radius: 10px; padding: 26px; }
+  #jl-cta-form .form-slot { min-height: 320px; }
+
+  /* FOOTER */
+  #jl-landing #jl-footer { padding: 36px 0; margin: 0; text-align: center; }
+  #jl-footer p { font-size: 13px; color: #93a3b8; margin: 4px 0; }
+  #jl-footer a { color: var(--yellow); }
+
+  @media (max-width: 900px) {
+    #jl-hero .grid { grid-template-columns: 1fr; }
+    #jl-hero .photo { order: -1; min-height: 260px; }
+    #jl-hero .panel { padding: 46px 28px; }
+    #jl-trust .grid, #jl-services .grid, #jl-process .steps { grid-template-columns: 1fr 1fr; }
+    #jl-solution .wrap, #jl-about .wrap { grid-template-columns: 1fr; }
+    #jl-about img { order: -1; }
+    #jl-solution .stat-row { flex-wrap: nowrap; gap: 12px; }
+    #jl-solution .stat { flex: 1; min-width: 0; }
+    #jl-solution .stat b { font-size: 20px; }
+    #jl-solution .stat span { font-size: 11px; }
+    #jl-process .steps .step { text-align: center; }
+    #jl-process .step-n { margin-left: auto; margin-right: auto; }
+    #jl-cta .cta-grid { grid-template-columns: 1fr; }
+    #jl-cta .cta-info { text-align: center; }
+    #jl-cta img.logo { margin: 0 auto 22px; }
+    #jl-cta-form h3 { text-align: center; }
+    #jl-gallery .grid { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 620px) {
+    #jl-landing section { padding: 56px 0; }
+    #jl-landing #jl-topbar { padding: 6px 0; }
+    #jl-topbar img { height: 56px; }
+    #jl-trust .grid, #jl-services .grid, #jl-process .steps, #jl-gallery .grid { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #jl-hero .bg-img { animation: none; }
+    #jl-hero .badge, #jl-hero h1, #jl-hero p.lead, #jl-hero .ctas, #jl-hero-form { animation: none; opacity: 1; transform: none; }
+    #jl-services .card.jl-card-pre { opacity: 1; transform: none; }
+    #jl-services .card.jl-card-in { animation: none; }
+  }
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div id="jl-landing">
+
+  <!-- TOPBAR: logo original de la marca -->
+  <header id="jl-topbar">
+    <!-- Imagen: logo.png -->
+    <img src="images/logo.png" alt="J&amp;L Painting logo">
+  </header>
+
+  <!-- 1. HERO -->
+  <section id="jl-hero">
+    <div class="grid">
+      <div class="panel">
+        <span class="badge">Burlington &middot; Triad &amp; Triangle, NC</span>
+        <h1>Professional Painting That Transforms Your Space</h1>
+        <p class="lead">Interior &amp; exterior painting for homes and businesses across Burlington, Raleigh, Durham, Greensboro, Mebane, and Winston-Salem. Clean prep, sharp lines, and a finish that lasts &mdash; in English or Spanish.</p>
+        <div class="ctas">
+          <a href="#jl-hero-form" class="btn">Request a Free Quote</a>
+          <a href="tel:+13365345753" class="btn-outline">Call (336) 534-5753</a>
+        </div>
+        <div id="jl-hero-form">
+          <h3>Get Your Free Quote</h3>
+          <div class="sub">Tell us about your project and we'll follow up fast.</div>
+          <div class="form-slot">
+            <!-- Formulario provisional: reemplazar TODO este bloque (form.jl-fake-form)
+                 por el iframe + script de GoHighLevel cuando lo tengan. -->
+            <form class="jl-fake-form" onsubmit="return false;">
+              <div class="row2">
+                <div>
+                  <label for="jl-h-fname">First Name</label>
+                  <input id="jl-h-fname" type="text" placeholder="Enter your first name">
+                </div>
+                <div>
+                  <label for="jl-h-lname">Last Name</label>
+                  <input id="jl-h-lname" type="text" placeholder="Enter your last name">
+                </div>
+              </div>
+              <div class="row2">
+                <div>
+                  <label for="jl-h-phone">Phone *</label>
+                  <input id="jl-h-phone" type="tel" placeholder="+1 (336) 000-0000" required>
+                </div>
+                <div>
+                  <label for="jl-h-email">Email *</label>
+                  <input id="jl-h-email" type="email" placeholder="your@email.com" required>
+                </div>
+              </div>
+              <div>
+                <label for="jl-h-address">Address</label>
+                <input id="jl-h-address" type="text" placeholder="Enter your address">
+              </div>
+              <div>
+                <label for="jl-h-desc">Project Description:</label>
+                <textarea id="jl-h-desc" placeholder="Describe your project here"></textarea>
+              </div>
+              <label class="consent"><input type="checkbox"> <span>I agree to be contacted by phone or email.</span></label>
+              <button type="button">Request a Free Quote</button>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="photo">
+        <!-- Imagen de fondo del Hero: bay-window-finished.jpg -->
+        <div class="bg-img" style="background-image:url('images/bay-window-finished.jpg');"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. TRUST BAR -->
+  <section id="jl-trust" class="sec-white">
+    <div class="wrap grid">
+      <div class="item">
+        <div class="icon">10</div>
+        <h3>Years of Experience</h3>
+        <p>A decade of professional interior &amp; exterior painting.</p>
+      </div>
+      <div class="item">
+        <div class="icon">&#10003;</div>
+        <h3>Workmanship Guarantee</h3>
+        <p>We inspect and touch up before we call the job done.</p>
+      </div>
+      <div class="item">
+        <div class="icon">&#128172;</div>
+        <h3>Bilingual Service</h3>
+        <p>We work with you in English or Spanish.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. PROBLEM -->
+  <section id="jl-problem" class="sec-blue">
+    <div class="wrap">
+      <span class="eyebrow" style="justify-content:center;">The Problem</span>
+      <h2>Tired of old, damaged, or outdated paint dragging down your space?</h2>
+      <p>Stained walls, cracked drywall, peeling exteriors, colors that feel a decade out of date &mdash; a tired paint job doesn't just look bad, it can hurt your property's value. And doing it yourself, or hiring someone who cuts corners on prep, usually ends up costing more in the long run.</p>
+    </div>
+  </section>
+
+  <!-- 4. SOLUTION -->
+  <section id="jl-solution" class="sec-white">
+    <div class="wrap">
+      <!-- Imagen: hallway-white-finished.jpg -->
+      <img src="images/hallway-white-finished.jpg" alt="Freshly painted hallway by J&amp;L Painting">
+      <div>
+        <span class="eyebrow">Our Solution</span>
+        <h2>Professional Painting, From Prep to Final Coat</h2>
+        <p><strong>J&amp;L Painting</strong> handles interior and exterior painting for homes and businesses &mdash; including surface prep, minor repairs, and high-quality finishes. We keep the work site clean and organized, and we guarantee our work when the job is done.</p>
+        <a href="#jl-hero-form" class="btn">Request a Free Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. SERVICES -->
+  <section id="jl-services" class="sec-blue">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="justify-content:center;">What We Do</span>
+        <h2 style="color:#fff;">Painting Services for Every Space</h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>Interior Painting</h3>
+          <p>Clean lines and lasting color for every room in your home.</p>
+        </div>
+        <div class="card">
+          <h3>Exterior Painting</h3>
+          <p>Weather-ready finishes that protect and refresh your property.</p>
+        </div>
+        <div class="card">
+          <h3>Surface Prep &amp; Repairs</h3>
+          <p>Cracks, holes, and damaged drywall fixed before the first coat.</p>
+        </div>
+        <div class="card">
+          <h3>Commercial Painting</h3>
+          <p>Professional results for businesses and property managers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. PROCESS -->
+  <section id="jl-process" class="sec-white">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="justify-content:center;">How We Work</span>
+        <h2>From Free Quote to Final Coat in 4 Steps</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-n">1</div>
+          <h3>Free Estimate &amp; Color Consultation</h3>
+          <p>We assess your space and give you an honest, detailed quote.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">2</div>
+          <h3>Surface Prep &amp; Protection</h3>
+          <p>We repair, patch, and protect your space before painting begins.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">3</div>
+          <h3>Professional Painting</h3>
+          <p>Clean, precise work with attention to every detail.</p>
+        </div>
+        <div class="step">
+          <div class="step-n">4</div>
+          <h3>Final Walkthrough &amp; Touch-Ups</h3>
+          <p>We inspect the finished work with you and handle any touch-ups.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. ABOUT -->
+  <section id="jl-about" class="sec-white" style="background:var(--bg-2);">
+    <div class="wrap">
+      <!-- Imagen: kitchen-finished.jpg -->
+      <img src="images/kitchen-finished.jpg" alt="Freshly painted kitchen by J&amp;L Painting">
+      <div>
+        <span class="eyebrow">About Us</span>
+        <h2>J&amp;L Painting: Detail-Driven, Bilingual, Guaranteed</h2>
+        <p>Led by Brandon Lopez, we've spent 10 years painting homes and businesses across Burlington, the Triad, and the Triangle &mdash; including Raleigh, Durham, Greensboro, Mebane, and Winston-Salem. We work with homeowners, investors, and property managers who want quality work, clear communication, and a clean job site.</p>
+        <div class="diffs">
+          <div class="diff"><span class="dot"></span><div><h3>Bilingual Service</h3><p>We communicate clearly in English or Spanish.</p></div></div>
+          <div class="diff"><span class="dot"></span><div><h3>Clean, Organized Work Sites</h3><p>We treat your property with care from start to finish.</p></div></div>
+          <div class="diff"><span class="dot"></span><div><h3>Workmanship Guarantee</h3><p>We inspect and correct any touch-ups before the job is done.</p></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. GALLERY -->
+  <section id="jl-gallery" class="sec-white">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="justify-content:center;">Our Work</span>
+        <h2>Recent Painting Projects</h2>
+      </div>
+      <div class="grid">
+        <!-- Imagen: accent-ceiling-red.jpg -->
+        <a href="#" class="lightbox-link"><img src="images/accent-ceiling-red.jpg" alt="Bold accent color ceiling paint job"></a>
+        <!-- Imagen: hallway-white-finished.jpg -->
+        <a href="#" class="lightbox-link"><img src="images/hallway-white-finished.jpg" alt="Freshly painted hallway"></a>
+        <!-- Imagen: bay-window-finished.jpg -->
+        <a href="#" class="lightbox-link"><img src="images/bay-window-finished.jpg" alt="Freshly painted bay window nook"></a>
+        <!-- Imagen: closet-doors-finished.jpg -->
+        <a href="#" class="lightbox-link"><img src="images/closet-doors-finished.jpg" alt="Freshly painted closet doors"></a>
+        <!-- Imagen: kitchen-finished.jpg -->
+        <a href="#" class="lightbox-link"><img src="images/kitchen-finished.jpg" alt="Freshly painted kitchen"></a>
+        <!-- Imagen: laundry-finished.jpg -->
+        <a href="#" class="lightbox-link"><img src="images/laundry-finished.jpg" alt="Freshly painted laundry room"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. COMMITMENT / TRUST BAND -->
+  <section id="jl-commit" class="sec-blue">
+    <div class="wrap">
+      <div class="mark">&ldquo;</div>
+      <blockquote>I treat every home and business like it's my own &mdash; clean prep, sharp lines, and a job site you'd never know we were in. Whether we talk in English or Spanish, my word on the finish is the same.</blockquote>
+      <div class="who">Brandon Lopez <span>Owner, J&amp;L Painting</span></div>
+    </div>
+  </section>
+
+  <!-- 10. FAQ -->
+  <section id="jl-faq" class="sec-white">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow" style="justify-content:center;">FAQ</span>
+        <h2>Frequently Asked Questions</h2>
+      </div>
+      <details open>
+        <summary>How much will my project cost?</summary>
+        <p>Every project is different, so we provide a free, detailed estimate after seeing your space &mdash; that's the only way to give you an honest, accurate price.</p>
+      </details>
+      <details>
+        <summary>How long will the work take?</summary>
+        <p>Timelines depend on the size and scope of the project. We'll give you a realistic schedule during your free estimate.</p>
+      </details>
+      <details>
+        <summary>Is paint and material included in the price?</summary>
+        <p>Yes &mdash; we'll go over exactly what's included in your quote, including paint and materials, so there are no surprises.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- 11. FINAL CTA -->
+  <section id="jl-cta">
+    <div class="wrap cta-grid">
+      <div class="cta-info">
+        <!-- Imagen: logo.png -->
+        <img class="logo" src="images/logo.png" alt="J&amp;L Painting logo">
+        <h1>Ready to Give Your Space a Fresh Coat?</h1>
+        <p>Interior, exterior, residential, or commercial &mdash; let's talk about your project and get you a free, honest quote.</p>
+      </div>
+      <div id="jl-cta-form">
+        <h3 style="color:var(--blue-dark);">Get Your Free Quote</h3>
+        <div class="form-slot">
+          <!-- Formulario provisional: reemplazar TODO este bloque (form.jl-fake-form)
+               por el iframe + script de GoHighLevel cuando lo tengan. -->
+          <form class="jl-fake-form" onsubmit="return false;">
+            <div class="row2">
+              <div>
+                <label for="jl-c-fname">First Name</label>
+                <input id="jl-c-fname" type="text" placeholder="Enter your first name">
+              </div>
+              <div>
+                <label for="jl-c-lname">Last Name</label>
+                <input id="jl-c-lname" type="text" placeholder="Enter your last name">
+              </div>
+            </div>
+            <div class="row2">
+              <div>
+                <label for="jl-c-phone">Phone *</label>
+                <input id="jl-c-phone" type="tel" placeholder="+1 (336) 000-0000" required>
+              </div>
+              <div>
+                <label for="jl-c-email">Email *</label>
+                <input id="jl-c-email" type="email" placeholder="your@email.com" required>
+              </div>
+            </div>
+            <div>
+              <label for="jl-c-address">Address</label>
+              <input id="jl-c-address" type="text" placeholder="Enter your address">
+            </div>
+            <div>
+              <label for="jl-c-desc">Project Description:</label>
+              <textarea id="jl-c-desc" placeholder="Describe your project here"></textarea>
+            </div>
+            <label class="consent"><input type="checkbox"> <span>I agree to be contacted by phone or email.</span></label>
+            <button type="button">Request a Free Quote</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 12. FOOTER -->
+  <section id="jl-footer" class="sec-blue">
+    <div class="wrap">
+      <p>&copy; 2026 J&amp;L Painting. All rights reserved.</p>
+      <p>Serving Burlington, Raleigh, Durham, Greensboro, Mebane &amp; Winston-Salem, NC.</p>
+      <p><a href="tel:+13365345753">(336) 534-5753</a> &nbsp;&middot;&nbsp; <a href="mailto:bl9327707@gmail.com">bl9327707@gmail.com</a></p>
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div id="jl-lightbox">
+    <button type="button" class="jl-lightbox-close" aria-label="Close">&times;</button>
+    <img src="" alt="">
+  </div>
+
+</div>
+<script>
+(function () {
+  var lb = document.getElementById('jl-lightbox');
+  if (!lb) return;
+  var lbImg = lb.querySelector('img');
+  var closeBtn = lb.querySelector('.jl-lightbox-close');
+
+  document.querySelectorAll('#jl-gallery a.lightbox-link').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      e.preventDefault();
+      var inner = a.querySelector('img');
+      lbImg.src = inner ? inner.src : '';
+      lbImg.alt = inner ? inner.alt : '';
+      lb.classList.add('open');
+    });
+  });
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    lbImg.src = '';
+  }
+  closeBtn.addEventListener('click', closeLightbox);
+  lb.addEventListener('click', function (e) {
+    if (e.target === lb) closeLightbox();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeLightbox();
+  });
+})();
+(function () {
+  var cards = document.querySelectorAll('#jl-services .card');
+  if (!('IntersectionObserver' in window) || !cards.length) return;
+  cards.forEach(function (c) { c.classList.add('jl-card-pre'); });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('jl-card-in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .15 });
+  cards.forEach(function (c) { io.observe(c); });
+})();
+</script>
+</body>
+</html>
